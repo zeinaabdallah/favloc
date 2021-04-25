@@ -1,0 +1,46 @@
+  body: AnimatedSplashScreen(
+            splash: Container(child: Image.asset('images/Artboard 45.png')),
+            nextScreen: front(),
+            backgroundColor: c1,
+            splashTransition: SplashTransition.fadeTransition,
+            //pageTransitionType: PageTransitionType.scale,
+          )
+
+TweenAnimationBuilder(
+        tween: Tween<double>(begin: 0, end: end1),
+        duration: const Duration(seconds: 1),
+        builder: (BuildContext context, double size, Widget? child) {
+          return Align(
+              alignment: Alignment(0, 0),
+              child: Image.asset('images/Artboard 45.png'));
+        }
+      )
+PageRouteBuilder(
+            transitionDuration: Duration(milliseconds: 500),
+            transitionsBuilder:
+                (context, animation, secondaryAnimation, child) {
+              // animation =
+              //     CurvedAnimation(parent: animation, curve: Curves.ease);
+              return FadeTransition(
+                opacity: animation,
+                child: child,
+              );
+            },
+            pageBuilder: (context, animation, secondaryAnimation) => front(),
+          ),
+        );
+      })
+
+ navigator(screen) {
+    Future.delayed(Duration(milliseconds: w.duration < 100 ? 100 : w.duration))
+        .then((_) {
+      try {
+        Navigator.of(_context).pushReplacement(
+            PageTransition(type: w.transitionType, child: screen));
+      } catch (msg) {
+        print('AnimatedSplashScreen -> '
+            'error in jump to next screen, probably '
+            'this run is in hot reload: $msg');
+      }
+    });
+  }
