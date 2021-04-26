@@ -139,9 +139,9 @@ class _cardsviewWidgetState extends State<cardsview> {
               //lol.listobj[1].name
             ));
           }),
-      Align(
-          alignment: Alignment.topCenter,
-          child: Image.asset('images/artboard451.png')),
+      // Align(
+      //     alignment: Alignment.topCenter,
+      //     child: Image.asset('images/artboard451.png')),
     ])));
   }
 }
