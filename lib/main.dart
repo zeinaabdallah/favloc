@@ -100,49 +100,78 @@ class _cardsviewWidgetState extends State<cardsview> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+        appBar: AppBar(
+          title: Text("favLocations"),
+        ),
         body: Container(
             child: Stack(children: [
-      // ListView(
-      //   shrinkWrap: true,
-      //   children: [
-      //     SizedBox(
-      //       height: 80,
-      //     ),
-      //     GestureDetector(
-      //       child: temp(containerKey),
-      //       onTap: () {
-      //         Navigator.push(context,
-      //             _secondtrans(0, containerKey.position(containerKey).dy));
-      //       },
-      //     ),
-      //     SizedBox(
-      //       height: 2,
-      //     ),
-      //     GestureDetector(
-      //       child: temp(containerKey1),
-      //       onTap: () {
-      //         Navigator.push(context,
-      //             _secondtrans(0, containerKey1.position(containerKey1).dy));
-      //       },
-      //     ),
-      //   ],
-      // ),
-      SizedBox(
-        height: 80,
+          // ListView(
+          //   shrinkWrap: true,
+          //   children: [
+          //     SizedBox(
+          //       height: 80,
+          //     ),
+          //     GestureDetector(
+          //       child: temp(containerKey),
+          //       onTap: () {
+          //         Navigator.push(context,
+          //             _secondtrans(0, containerKey.position(containerKey).dy));
+          //       },
+          //     ),
+          //     SizedBox(
+          //       height: 2,
+          //     ),
+          //     GestureDetector(
+          //       child: temp(containerKey1),
+          //       onTap: () {
+          //         Navigator.push(context,
+          //             _secondtrans(0, containerKey1.position(containerKey1).dy));
+          //       },
+          //     ),
+          //   ],
+          // ),
+          SizedBox(
+            height: 80,
+          ),
+          ListView.builder(
+              itemCount: locationsAll().listobj.length,
+              itemBuilder: (context, index) {
+                return InkWell(
+                  child: Card(
+                    child: Container(
+                        child: Column(
+                      children: <Widget>[
+                        Image.network("${lol.listobj[index].imageUrl}"),
+                        Text("${lol.listobj[index].name}",
+                            style: DefaultTextStyle.of(context)
+                                .style
+                                .apply(fontSizeFactor: 1.5)),
+                        Text("${lol.listobj[index].theme}"),
+                      ],
+                    )),
+                  ),
+                  onTap: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(builder: (context) => theRoute()),
+                    );
+                  },
+                );
+              }),
+          // Align(
+          //     alignment: Alignment.topCenter,
+          //     child: Image.asset('images/artboard451.png')),
+        ])));
+  }
+}
+
+class theRoute extends StatelessWidget {
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: Text("Details"),
       ),
-      ListView.builder(
-          itemCount: lol.listobj.length,
-          itemBuilder: (context, index) {
-            return Card(
-                child: Center(
-              child: Text("${lol.listobj[index].name}"),
-              //lol.listobj[1].name
-            ));
-          }),
-      // Align(
-      //     alignment: Alignment.topCenter,
-      //     child: Image.asset('images/artboard451.png')),
-    ])));
+    );
   }
 }
 
