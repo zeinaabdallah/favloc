@@ -142,18 +142,33 @@ class _cardsviewWidgetState extends State<cardsview> {
                         child: Column(
                       children: <Widget>[
                         Image.network("${lol.listobj[index].imageUrl}"),
-                        Text("${lol.listobj[index].name}",
-                            style: DefaultTextStyle.of(context)
-                                .style
-                                .apply(fontSizeFactor: 1.5)),
-                        Text("${lol.listobj[index].theme}"),
+                        SizedBox(height: 10),
+                        Text(
+                          "${lol.listobj[index].name}",
+                          style: DefaultTextStyle.of(context)
+                              .style
+                              .apply(fontSizeFactor: 1.5),
+                        ),
+                        SizedBox(height: 10),
+                        Text(
+                          "${lol.listobj[index].theme}",
+                          style: TextStyle(
+                              fontSize: 17,
+                              color: Colors.white.withOpacity(0.7)),
+                        ),
+                        SizedBox(height: 10),
                       ],
                     )),
                   ),
                   onTap: () {
                     Navigator.push(
                       context,
-                      MaterialPageRoute(builder: (context) => theRoute()),
+                      MaterialPageRoute(
+                          builder: (context) => theRoute(
+                                n: "${lol.listobj[index].name}",
+                                url: "${lol.listobj[index].imageUrl}",
+                                d: "${lol.listobj[index].description}",
+                              )),
                     );
                   },
                 );
@@ -166,10 +181,44 @@ class _cardsviewWidgetState extends State<cardsview> {
 }
 
 class theRoute extends StatelessWidget {
+  final String n;
+  final String url;
+  final String d;
+
+  /*theRoute(String name, String urlimage, String description) {
+    this.n = name;
+    this.url = urlimage;
+    this.d = description;
+  }*/
+  theRoute({required this.n, required this.url, required this.d});
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: Text("Details"),
+      appBar: AppBar(title: Text("Details")),
+      body: Container(
+          child: ListView(
+        children: <Widget>[
+          SizedBox(height: 10),
+          Text(
+            n,
+            style: TextStyle(fontSize: 40),
+            textAlign: TextAlign.center,
+          ),
+          SizedBox(height: 25),
+          Image.network(url),
+          SizedBox(height: 25),
+          Text(
+            d,
+            style: TextStyle(fontSize: 25),
+          ),
+        ],
+      )),
+      floatingActionButton: FloatingActionButton(
+        onPressed: () {},
+        backgroundColor: Colors.white,
+        child: const Icon(
+          Icons.location_on,
+          size: 35.0,
+        ),
       ),
     );
   }
