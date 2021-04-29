@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:my_app/data/locationsAll.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 //there is alot of code that is not used for now but would be used later on to
 //enhance the ux
@@ -165,10 +166,10 @@ class _cardsviewWidgetState extends State<cardsview> {
                       context,
                       MaterialPageRoute(
                           builder: (context) => theRoute(
-                                n: "${lol.listobj[index].name}",
-                                url: "${lol.listobj[index].imageUrl}",
-                                d: "${lol.listobj[index].description}",
-                              )),
+                              n: "${lol.listobj[index].name}",
+                              url: "${lol.listobj[index].imageUrl}",
+                              d: "${lol.listobj[index].description}",
+                              locurl: "${lol.listobj[index].locationUrl}")),
                     );
                   },
                 );
@@ -184,13 +185,18 @@ class theRoute extends StatelessWidget {
   final String n;
   final String url;
   final String d;
+  final String locurl;
 
   /*theRoute(String name, String urlimage, String description) {
     this.n = name;
     this.url = urlimage;
     this.d = description;
   }*/
-  theRoute({required this.n, required this.url, required this.d});
+  theRoute(
+      {required this.n,
+      required this.url,
+      required this.d,
+      required this.locurl});
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(title: Text("Details")),
@@ -213,7 +219,7 @@ class theRoute extends StatelessWidget {
         ],
       )),
       floatingActionButton: FloatingActionButton(
-        onPressed: () {},
+        onPressed: () => {launch(locurl)},
         backgroundColor: Colors.white,
         child: const Icon(
           Icons.location_on,
@@ -223,6 +229,10 @@ class theRoute extends StatelessWidget {
     );
   }
 }
+
+/*Future<void> _launchURL(String _url1) async => await canLaunch(_url1)
+    ? await launch(_url1)
+    : throw 'Could not launch $_url1'; */
 
 // ignore: camel_case_types
 class formcard extends StatefulWidget {

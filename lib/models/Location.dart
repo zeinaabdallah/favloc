@@ -4,7 +4,7 @@ class Location {
   final String theme;
   final String description;
   final String imageUrl;
-  late String locationUrl;
+  final String locationUrl;
 
   Location(
       {required this.id,
@@ -12,5 +12,5 @@ class Location {
       required this.description,
       required this.theme,
       required this.imageUrl,
-      String? locationUrl});
+      required this.locationUrl});
 }
