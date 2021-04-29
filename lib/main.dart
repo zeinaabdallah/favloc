@@ -13,7 +13,7 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
         theme: ThemeData(
             brightness: Brightness.dark, primaryColorDark: Colors.black),
-        home: Scaffold(backgroundColor: c1, body: front()));
+        home: Scaffold(backgroundColor: c1, body: cardsview()));
   }
 }
 
@@ -95,77 +95,45 @@ class cardsview extends StatefulWidget {
 
 // ignore: camel_case_types
 class _cardsviewWidgetState extends State<cardsview> {
-  final containerKey = GlobalKey();
-  final containerKey1 = GlobalKey();
   final lol = locationsAll();
   @override
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
-          title: Text("favLocations"),
+          title: Text("FAVLOC"),
         ),
         body: Container(
             child: Stack(children: [
-          // ListView(
-          //   shrinkWrap: true,
-          //   children: [
-          //     SizedBox(
-          //       height: 80,
-          //     ),
-          //     GestureDetector(
-          //       child: temp(containerKey),
-          //       onTap: () {
-          //         Navigator.push(context,
-          //             _secondtrans(0, containerKey.position(containerKey).dy));
-          //       },
-          //     ),
-          //     SizedBox(
-          //       height: 2,
-          //     ),
-          //     GestureDetector(
-          //       child: temp(containerKey1),
-          //       onTap: () {
-          //         Navigator.push(context,
-          //             _secondtrans(0, containerKey1.position(containerKey1).dy));
-          //       },
-          //     ),
-          //   ],
-          // ),
-          SizedBox(
-            height: 80,
-          ),
           ListView.builder(
               itemCount: locationsAll().listobj.length,
               itemBuilder: (context, index) {
                 return InkWell(
                   child: Card(
-                    child: Container(
-                        child: Column(
-                      children: <Widget>[
-                        Image.network("${lol.listobj[index].imageUrl}"),
-                        SizedBox(height: 10),
-                        Text(
-                          "${lol.listobj[index].name}",
-                          style: DefaultTextStyle.of(context)
-                              .style
-                              .apply(fontSizeFactor: 1.5),
-                        ),
-                        SizedBox(height: 10),
-                        Text(
-                          "${lol.listobj[index].theme}",
-                          style: TextStyle(
-                              fontSize: 17,
-                              color: Colors.white.withOpacity(0.7)),
-                        ),
-                        SizedBox(height: 10),
-                      ],
-                    )),
-                  ),
+                      child: Stack(
+                    children: <Widget>[
+                      // ColorFiltered(
+                      //   colorFilter: const ColorFilter.mode(
+                      //     Colors.grey,
+                      //     BlendMode.darken,
+                      //   ),
+                      //   child:
+                      Image.network("${lol.listobj[index].imageUrl}"),
+                      // ),
+                      Align(
+                          alignment: Alignment.bottomLeft,
+                          child: Text(
+                            "${lol.listobj[index].name}\n${lol.listobj[index].theme}",
+                            style: DefaultTextStyle.of(context)
+                                .style
+                                .apply(fontSizeFactor: 1.5),
+                          )),
+                    ],
+                  )),
                   onTap: () {
                     Navigator.push(
                       context,
                       MaterialPageRoute(
-                          builder: (context) => theRoute(
+                          builder: (context) => Details(
                               n: "${lol.listobj[index].name}",
                               url: "${lol.listobj[index].imageUrl}",
                               d: "${lol.listobj[index].description}",
@@ -174,25 +142,28 @@ class _cardsviewWidgetState extends State<cardsview> {
                   },
                 );
               }),
-          // Align(
-          //     alignment: Alignment.topCenter,
-          //     child: Image.asset('images/artboard451.png')),
-        ])));
+        ])),
+        floatingActionButton: FloatingActionButton(
+          onPressed: () => {
+            Navigator.push(
+                context, MaterialPageRoute(builder: (context) => front()))
+          },
+          backgroundColor: const Color(0xFF477194),
+          child: const Icon(
+            Icons.add,
+            size: 35.0,
+          ),
+        ));
   }
 }
 
-class theRoute extends StatelessWidget {
+class Details extends StatelessWidget {
   final String n;
   final String url;
   final String d;
   final String locurl;
 
-  /*theRoute(String name, String urlimage, String description) {
-    this.n = name;
-    this.url = urlimage;
-    this.d = description;
-  }*/
-  theRoute(
+  Details(
       {required this.n,
       required this.url,
       required this.d,
@@ -220,7 +191,7 @@ class theRoute extends StatelessWidget {
       )),
       floatingActionButton: FloatingActionButton(
         onPressed: () => {launch(locurl)},
-        backgroundColor: Colors.white,
+        backgroundColor: const Color(0xFF477194),
         child: const Icon(
           Icons.location_on,
           size: 35.0,
@@ -273,39 +244,6 @@ class _formcardWidgetState extends State<formcard> {
             SizedBox(height: 5),
           ],
         ),
-      ),
-    );
-  }
-}
-
-// ignore: camel_case_types
-class temp extends StatefulWidget {
-  final GlobalKey key;
-  temp(this.key) : super(key: key);
-
-  @override
-  _tempWidgetState createState() => _tempWidgetState(key);
-}
-
-// ignore: camel_case_types
-class _tempWidgetState extends State<temp> {
-  GlobalKey k;
-  _tempWidgetState(this.k);
-  @override
-  Widget build(BuildContext context) {
-    Color c = const Color(0xFF202020);
-    return Card(
-      key: k,
-      color: c,
-      shape: RoundedRectangleBorder(
-        side: BorderSide(color: Colors.black12, width: 0.5),
-        borderRadius: BorderRadius.circular(15),
-      ),
-      child: Column(
-        mainAxisSize: MainAxisSize.min,
-        children: <Widget>[
-          SizedBox(height: 50, width: 50),
-        ],
       ),
     );
   }
@@ -380,20 +318,6 @@ class dataview extends StatefulWidget {
 // ignore: camel_case_types
 class _dataviewWidgetState extends State<dataview>
     with TickerProviderStateMixin {
-  // Tween<double> _tween = Tween(begin: 0.1, end: 2);
-  // late final AnimationController _controller =
-  //     AnimationController(duration: const Duration(seconds: 2), vsync: this);
-
-  // late final Animation<double> _animation = CurvedAnimation(
-  //   parent: _controller,
-  //   curve: Curves.linear,
-  // );
-  // @override
-  // void dispose() {
-  //   super.dispose();
-  //   _controller.dispose();
-  // }
-
   late bool selected = false;
   Widget build(BuildContext context) {
     // body would contain the card with the exact size and position
