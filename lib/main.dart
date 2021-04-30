@@ -100,49 +100,68 @@ class _cardsviewWidgetState extends State<cardsview> {
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
-          title: Text("FAVLOC"),
+          title: Image.asset('images/artboard452.png'),
         ),
         body: Container(
+            padding: EdgeInsets.symmetric(horizontal: 8),
             child: Stack(children: [
-          ListView.builder(
-              itemCount: locationsAll().listobj.length,
-              itemBuilder: (context, index) {
-                return InkWell(
-                  child: Card(
-                      child: Stack(
-                    children: <Widget>[
-                      // ColorFiltered(
-                      //   colorFilter: const ColorFilter.mode(
-                      //     Colors.grey,
-                      //     BlendMode.darken,
-                      //   ),
-                      //   child:
-                      Image.network("${lol.listobj[index].imageUrl}"),
-                      // ),
-                      Align(
-                          alignment: Alignment.bottomLeft,
-                          child: Text(
-                            "${lol.listobj[index].name}\n${lol.listobj[index].theme}",
-                            style: DefaultTextStyle.of(context)
-                                .style
-                                .apply(fontSizeFactor: 1.5),
-                          )),
-                    ],
-                  )),
-                  onTap: () {
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                          builder: (context) => Details(
-                              n: "${lol.listobj[index].name}",
-                              url: "${lol.listobj[index].imageUrl}",
-                              d: "${lol.listobj[index].description}",
-                              locurl: "${lol.listobj[index].locationUrl}")),
+              ListView.builder(
+                  itemCount: locationsAll().listobj.length,
+                  itemBuilder: (context, index) {
+                    return InkWell(
+                      child: Card(
+                          elevation: 5,
+                          // Image.network("${lol.listobj[index].imageUrl}"),
+                          child: ClipRRect(
+                              borderRadius: BorderRadius.circular(5.0),
+                              child: SizedBox(
+                                height: 250,
+                                width: 330,
+                                child: Stack(
+                                  children: <Widget>[
+                                    new Positioned.fill(
+                                        child: Image.network(
+                                      "${lol.listobj[index].imageUrl}",
+                                      fit: BoxFit.fill,
+                                    )),
+                                    Container(
+                                        padding: EdgeInsets.all(5.0),
+                                        alignment: Alignment.bottomCenter,
+                                        decoration: BoxDecoration(
+                                          gradient: LinearGradient(
+                                            begin: Alignment.topCenter,
+                                            end: Alignment.bottomCenter,
+                                            colors: <Color>[
+                                              Colors.black.withAlpha(0),
+                                              Colors.black12,
+                                              Colors.black87
+                                            ],
+                                          ),
+                                        ),
+                                        child: Text(
+                                          "| ${lol.listobj[index].name} \n| ${lol.listobj[index].theme}",
+                                          style: TextStyle(
+                                              fontWeight: FontWeight.w600,
+                                              color: Colors.white,
+                                              fontSize: 20.0),
+                                        )),
+                                  ],
+                                ),
+                              ))),
+                      onTap: () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => Details(
+                                  n: "${lol.listobj[index].name}",
+                                  url: "${lol.listobj[index].imageUrl}",
+                                  d: "${lol.listobj[index].description}",
+                                  locurl: "${lol.listobj[index].locationUrl}")),
+                        );
+                      },
                     );
-                  },
-                );
-              }),
-        ])),
+                  }),
+            ])),
         floatingActionButton: FloatingActionButton(
           onPressed: () => {
             Navigator.push(
@@ -170,23 +189,27 @@ class Details extends StatelessWidget {
       required this.locurl});
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: Text("Details")),
+      appBar: AppBar(),
       body: Container(
           child: ListView(
         children: <Widget>[
-          SizedBox(height: 10),
-          Text(
-            n,
-            style: TextStyle(fontSize: 40),
-            textAlign: TextAlign.center,
-          ),
-          SizedBox(height: 25),
           Image.network(url),
-          SizedBox(height: 25),
-          Text(
-            d,
-            style: TextStyle(fontSize: 25),
-          ),
+          SizedBox(height: 10),
+          Padding(
+              padding: EdgeInsets.only(left: 5),
+              child: Text(
+                n,
+                style: TextStyle(fontSize: 30, fontWeight: FontWeight.bold),
+                textAlign: TextAlign.left,
+              )),
+          SizedBox(height: 10),
+          Padding(
+              padding: EdgeInsets.symmetric(horizontal: 10),
+              child: Text(
+                d,
+                style: const TextStyle(
+                    fontFamily: 'Raleway', fontSize: 18, color: Colors.white70),
+              )),
         ],
       )),
       floatingActionButton: FloatingActionButton(
