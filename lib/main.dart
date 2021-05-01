@@ -100,7 +100,7 @@ class _cardsviewWidgetState extends State<cardsview> {
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
-          title: Image.asset('images/artboard452.png'),
+          title: Image.asset('images/Artboard 415ldpi.png'),
         ),
         body: Container(
             padding: EdgeInsets.symmetric(horizontal: 8),
@@ -189,29 +189,48 @@ class Details extends StatelessWidget {
       required this.locurl});
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(),
-      body: Container(
-          child: ListView(
+      body: Stack(
+        alignment: Alignment.topLeft,
         children: <Widget>[
-          Image.network(url),
-          SizedBox(height: 10),
-          Padding(
-              padding: EdgeInsets.only(left: 5),
-              child: Text(
-                n,
-                style: TextStyle(fontSize: 30, fontWeight: FontWeight.bold),
-                textAlign: TextAlign.left,
-              )),
-          SizedBox(height: 10),
-          Padding(
-              padding: EdgeInsets.symmetric(horizontal: 10),
-              child: Text(
-                d,
-                style: const TextStyle(
-                    fontFamily: 'Raleway', fontSize: 18, color: Colors.white70),
-              )),
+          Container(
+              child: ListView(
+            children: <Widget>[
+              SizedBox(
+                height: 5,
+              ),
+              Padding(
+                  padding: EdgeInsets.symmetric(horizontal: 5),
+                  child: ClipRRect(
+                      borderRadius: BorderRadius.circular(5.0),
+                      child: Image.network(url))),
+              SizedBox(height: 20),
+              Padding(
+                  padding: EdgeInsets.only(left: 5),
+                  child: Text(
+                    n,
+                    style: TextStyle(fontSize: 30, fontWeight: FontWeight.bold),
+                    textAlign: TextAlign.left,
+                  )),
+              SizedBox(height: 15),
+              Padding(
+                  padding: EdgeInsets.symmetric(horizontal: 10),
+                  child: Text(
+                    d,
+                    style: const TextStyle(
+                        fontFamily: 'Raleway',
+                        fontSize: 18,
+                        color: Colors.white70),
+                  )),
+            ],
+          )),
+          IconButton(
+            icon: Icon(Icons.arrow_back),
+            onPressed: () {
+              Navigator.pop(context);
+            },
+          )
         ],
-      )),
+      ),
       floatingActionButton: FloatingActionButton(
         onPressed: () => {launch(locurl)},
         backgroundColor: const Color(0xFF477194),

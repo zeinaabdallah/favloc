@@ -7,6 +7,6 @@
     <item>
         <bitmap
             android:gravity="center"
-            android:src="@drawable/artboard45" />
+            android:src="@drawable/artboard" />
     </item>
 </layer-list>
